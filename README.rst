@@ -16,11 +16,11 @@ Before installation, make sure you have pytorch or install essential dependencie
 
 
 
-* Installation from PyPI
+* Installation
 
 .. code::
 
-  pip install photcalib
+  pip install --user -e.
 
 * Manual installation
 
