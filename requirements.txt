@@ -5,3 +5,9 @@ numpy
 matplotlib
 astropy
 torch
+transformers
+torchvision
+tqdm
+datasets
+scipy
+multiprocessing
