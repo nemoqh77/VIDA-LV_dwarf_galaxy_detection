@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 from astropy.io import fits
 import time
@@ -7,14 +6,8 @@ import random
 from datetime import datetime
 import matplotlib.pyplot as plt
 #%matplotlib inline
-import healpy as hp
-from astropy.io import fits
-import matplotlib.image as mp
-from astropy.coordinates import SkyCoord
-from collections import Counter
 import os
 from astropy.io import ascii
-from mpl_toolkits.mplot3d import Axes3D
 import ast
 from scipy.ndimage import gaussian_filter
 from scipy.signal import convolve2d
