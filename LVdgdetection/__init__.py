@@ -8,8 +8,5 @@ The package mainly contains:
   dwarf galaxy datection                    return the cut image of candidates 
   dwarf galaxy classification               return ViT result
 """
-from .dg_finder_header import deform
-from .training import TrainingModule
-from .make_plots import make_diagnostic_plots
-from .apply_calib import generate_newcat
-from .set_argparse import argparse_train_model, argparse_apply_model
+__version__ = "0.1" 
+from .dg_finder_header import divide_sky,pool_sky,show_mask_,n1writedg_reg,_mask_,bkgwrite_candi,load_reg
