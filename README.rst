@@ -47,7 +47,7 @@ The first "1" means run train sampleA , second "1" means run train sampleB (if d
 0.00005: learning rate
 
 
-To train the model with dataset sample A and B:
+Test model with dataset sample A and B:
 .. code::
 
   python3 ViT_test.py 1 1 0.00005 ep1 ep2
