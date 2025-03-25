@@ -5,8 +5,8 @@ def readme():
         return f.read()
 
 setup(name = "LVdgdetection",
-    version = 0.1,
-    description = "Dwarf galaxy detecion and classification for CSST image data",
+    version = "0.1",
+    description = "Dwarf galaxy detecion for CSST image data",
     long_description = readme(),
     long_description_content_type="text/x-rst",
     author = "Han Qu",
