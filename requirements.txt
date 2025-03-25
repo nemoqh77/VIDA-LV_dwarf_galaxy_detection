@@ -9,3 +9,5 @@ transformers
 torchvision
 tqdm
 datasets
+scipy
+multiprocessing
