@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 #%matplotlib inline
 import os
 from astropy.io import ascii
-import ast
 from scipy.ndimage import gaussian_filter
 from scipy.signal import convolve2d
 from multiprocessing import Pool
