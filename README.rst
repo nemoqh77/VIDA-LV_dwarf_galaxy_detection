@@ -1,4 +1,4 @@
-PhotCalib
+LVdgdetection
 -----------
 
 Local Volume dwarf galaxy detection and classification base on CSST simulation data & ViT model
