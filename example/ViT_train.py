@@ -1,21 +1,8 @@
 import transformers
-import pandas as pd
-from astropy.io import fits
 import time
 import math
 import random
-import matplotlib.pyplot as plt
-#import healpy as hp
-from astropy.io import fits
-import matplotlib.image as mp
-from astropy.coordinates import SkyCoord
-from collections import Counter
 import os
-from astropy.io import ascii
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.collections import LineCollection
-from multiprocessing import Pool
-from PIL import Image
 import sys
 from datetime import datetime
 
@@ -28,6 +15,9 @@ from torchvision import transforms
 from torch.optim import Adam  
 from torch.utils.data import DataLoader  
 from tqdm import tqdm  
+from datasets import load_dataset  
+
+
 def mkdir(path):
     folder = os.path.exists(path)
     if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
@@ -37,7 +27,7 @@ print(use_cuda)
 device = torch.device("cuda" if use_cuda else "cpu")
 
 #Pretrained model checkpoint  
-model_checkpoint = 'vit-base-patch16-224-in21k'  
+model_checkpoint = '../vit-base-patch16-224-in21k'  
 
 class ImageDataset(torch.utils.data.Dataset):  
   
@@ -71,7 +61,7 @@ class ImageDataset(torch.utils.data.Dataset):
 class ViT(nn.Module):  
   
     def __init__(self, config=ViTConfig(), num_labels=2,  
-        model_checkpoint= 'vit-base-patch16-224-in21k'):  
+        model_checkpoint= '../vit-base-patch16-224-in21k'):  
         super(ViT, self).__init__()  
 
         self.vit = ViTModel.from_pretrained(model_checkpoint, add_pooling_layer=False)  
@@ -138,105 +128,110 @@ def predict(img,the_model):
     print(output)
     return(output,prediction)
 
-from datasets import load_dataset  
+
+
 now = datetime.now()
 print(f"start load data：{now}")
-run1=round(float(sys.argv[1]))
-run2=round(float(sys.argv[2]))
-cudaid=round(float(sys.argv[3]))
+
+cudaid=0
 cudaid1=cudaid
 cudaid2=cudaid
 
-mkdir("../result/")
+mkdir("../result/n224_set10/")
 
-do1=True
-edo1=True
-lrl=[5e-6]
-
-    pathset1="../dataset/n224set10/tncenters1frandomrot_jpgCSSTDG/"
-    pathset2="../dataset/n224set10/tnelsecenters1frandomrot_jpgCSSTDG/"
-    model_spath1="newresult/n224_set10/tndgmodel_centers1_"+str(runii)+""
-    model_espath1="newresult/n224_set10/tndgmodel_elsecenters1_"+str(runii)+""
-    lri=0
-    for LEARNING_RATE  in lrl:
-        lri+=1
-        if do1:
-            pathnn="/home/quhan/ML_try/result/"+str(model_spath1)+"_c1flr_"+str(lri)+"/"
-            mkdir(pathnn)
-            if not os.path.exists(pathnn+"dg_model_test.model"):
-                print("run:",model_spath1,"lr=",LEARNING_RATE)
-                now = datetime.now()
-                print(f"time：{now}")
-                torch.cuda.set_device(cudaid1)
-                torch.set_num_threads(1)
-                dataset = load_dataset(pathset1)  
-                print(dataset)  
-                now = datetime.now()
-                print(f"finish load data：{now}")
-                localtime = time.asctime( time.localtime(time.time()) )
-                times=localtime.split()[3]        
-                print(localtime)
-            
-                now = datetime.now()
-                print("---------------------------------------------------")
-                print(f"start train：{now}",lri,LEARNING_RATE)
-                print("---------------------------------------------------\n")
-                ## 超参数设置
-                EPOCHS = 60
-                #LEARNING_RATE = 2e-4
-                BATCH_SIZE = 40
-                
-                print("\nEPOCHS =",EPOCHS)
-                print("LEARNING_RATE =",LEARNING_RATE)
-                print("BATCH_SIZE =",BATCH_SIZE)
-                print("\n   ")
-                
-                trained_model = model_train(dataset['train'], EPOCHS, LEARNING_RATE, BATCH_SIZE,pathnn)
-                save_path=pathnn+"dg_model_test.model"
-                os.makedirs(os.path.dirname(save_path), exist_ok=True)
-                torch.save(trained_model.state_dict(), save_path)
+if round(float(sys.argv[1]))==1:
+    do1=True
+else:
+    do1=False
     
-        if edo1:
-            if lri==0 and runii==-100:
-                print("pass")
-            else:
-                pathnn="/home/quhan/ML_try/result/"+str(model_espath1)+"_c1flr_"+str(lri)+"/"
-                mkdir(pathnn)
-                if not os.path.exists(pathnn+"dg_model_test.model"):
-                    print("run:",model_espath1,"lr=",LEARNING_RATE)
-                    now = datetime.now()
-                    print(f"time：{now}")
-                
-                    
-                    os.system("cp "+current_file_path+" "+pathnn)
-                    
-                    torch.cuda.set_device(cudaid2)
-                    torch.set_num_threads(1)
-                    dataset = load_dataset(pathset2)  
-                    print(dataset)  
-                    now = datetime.now()
-                    print(f"finish load data：{now}")
-                    localtime = time.asctime( time.localtime(time.time()) )
-                    times=localtime.split()[3]        
-                    print(localtime)
-                
-                
-                    now = datetime.now()
-                    print("---------------------------------------------------")
-                    print(f"start train：{now}",lri,LEARNING_RATE)
-                    print("---------------------------------------------------\n")
-                    ## 超参数设置
-                    EPOCHS = 60
-                    #LEARNING_RATE = 2e-4
-                    BATCH_SIZE = 40
-                    
-                    print("\nEPOCHS =",EPOCHS)
-                    print("LEARNING_RATE =",LEARNING_RATE)
-                    print("BATCH_SIZE =",BATCH_SIZE)
-                    print("\n   ")
-                    
-                    
-                    trained_model = model_train(dataset['train'], EPOCHS, LEARNING_RATE, BATCH_SIZE,pathnn)
-                    save_path=pathnn+"dg_model_test.model"
-                    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-                    torch.save(trained_model.state_dict(), save_path)
+if round(float(sys.argv[2]))==1:
+    edo1=True
+else:
+    edo1=False
+
+## 超参数设置
+lrl=[float(sys.argv[3])]
+EPOCHS = 60
+BATCH_SIZE = 40
+
+
+pathset1="../dataset/sampleA_randomrot_jpgCSSTDG/"
+pathset2="../dataset/sampleB_randomrot_jpgCSSTDG/"
+model_spath1="../result/dgmodel_sampleA"
+model_espath1="../result/dgmodel_sampleB"
+
+lri=0
+for LEARNING_RATE  in lrl:
+    lri+=1
+    if do1:
+        pathnn=str(model_spath1)+"_"+str(lri)+"/"
+        mkdir(pathnn)
+
+        print("run:",model_spath1,"lr=",LEARNING_RATE)
+        now = datetime.now()
+        print(f"time：{now}")
+
+        torch.cuda.set_device(cudaid)
+        torch.set_num_threads(1)
+        dataset = load_dataset(pathset1)  
+        print(dataset)  
+        now = datetime.now()
+        print(f"finish load data：{now}")
+        localtime = time.asctime( time.localtime(time.time()) )
+        times=localtime.split()[3]        
+        print(localtime)
+    
+        now = datetime.now()
+        print("---------------------------------------------------")
+        print(f"start train：{now}",lri,LEARNING_RATE)
+        print("---------------------------------------------------\n")
+       
+        
+        print("\nEPOCHS =",EPOCHS)
+        print("LEARNING_RATE =",LEARNING_RATE)
+        print("BATCH_SIZE =",BATCH_SIZE)
+        print("\n   ")
+        
+        trained_model = model_train(dataset['train'], EPOCHS, LEARNING_RATE, BATCH_SIZE,pathnn)
+        save_path=pathnn+"dg_model_test.model"
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+        torch.save(trained_model.state_dict(), save_path)
+
+    if edo1:
+        pathnn=str(model_espath1)+"_"+str(lri)+"/"
+        mkdir(pathnn)
+        if not os.path.exists(pathnn+"dg_model_test.model"):
+            print("run:",model_espath1,"lr=",LEARNING_RATE)
+            now = datetime.now()
+            print(f"time：{now}")
+        
+            
+            os.system("cp "+current_file_path+" "+pathnn)
+            
+            torch.cuda.set_device(cudaid)
+            torch.set_num_threads(1)
+            dataset = load_dataset(pathset2)  
+            print(dataset)  
+            now = datetime.now()
+            print(f"finish load data：{now}")
+            localtime = time.asctime( time.localtime(time.time()) )
+            times=localtime.split()[3]        
+            print(localtime)
+        
+        
+            now = datetime.now()
+            print("---------------------------------------------------")
+            print(f"start train：{now}",lri,LEARNING_RATE)
+            print("---------------------------------------------------\n")
+            ## 超参数设置
+            
+            print("\nEPOCHS =",EPOCHS)
+            print("LEARNING_RATE =",LEARNING_RATE)
+            print("BATCH_SIZE =",BATCH_SIZE)
+            print("\n   ")
+            
+            
+            trained_model = model_train(dataset['train'], EPOCHS, LEARNING_RATE, BATCH_SIZE,pathnn)
+            save_path=pathnn+"dg_model_test.model"
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            torch.save(trained_model.state_dict(), save_path)
