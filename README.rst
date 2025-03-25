@@ -28,9 +28,16 @@ Getting started
 .. code::
 
   cd examples
- 
 
-To train the model with dataset sample A and B:
+Download the ViT model "vit-base-patch16-224-in21k"
+----------------
+
+https://huggingface.co/docs/transformers/model_doc/vit
+
+
+
+Train model with dataset sample A and B:
+----------------
 .. code::
 
   python3 ViT_train.py 1 1 0.00005 
