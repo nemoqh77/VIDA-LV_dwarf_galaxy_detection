@@ -22,6 +22,13 @@ Before installation, make sure you have pytorch or install essential dependencie
 
   pip install --user -e.
 
+
+Download the ViT model "vit-base-patch16-224-in21k"
+----------------
+
+https://huggingface.co/docs/transformers/model_doc/vit
+
+
 Getting started 
 ----------------
 
@@ -29,10 +36,8 @@ Getting started
 
   cd examples
 
-Download the ViT model "vit-base-patch16-224-in21k"
-----------------
-
-https://huggingface.co/docs/transformers/model_doc/vit
+dg_detection.ipynb:  algorithm of extended sources detection.
+ViT_result.ipynb:  load ViT training result.
 
 
 
@@ -59,7 +64,10 @@ The first "1" means run train sampleA , second "1" means run train sampleB (if d
 
 ep1 and ep2 represent the epoch range (0-60) you selected for model testing to obtain prediction results. 
 
-
+data example
+----------------
+data: simulation image data
+dataset: One group of A/B dataset samples of ViT model. 
 
 Citing this work
 ----------------
