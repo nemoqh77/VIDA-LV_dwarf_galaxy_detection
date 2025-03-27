@@ -37,6 +37,7 @@ Getting started
   cd examples
 
 dg_detection.ipynb:  algorithm of extended sources detection.
+
 ViT_result.ipynb:  load ViT training result.
 
 
@@ -66,8 +67,9 @@ ep1 and ep2 represent the epoch range (0-60) you selected for model testing to o
 
 data example
 ----------------
-data: simulation image data
-dataset: One group of A/B dataset samples of ViT model. 
+data: simulation image data of CSST
+
+dataset: a group of A/B dataset samples of ViT model. 
 
 Citing this work
 ----------------
