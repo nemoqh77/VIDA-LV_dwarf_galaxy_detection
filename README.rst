@@ -42,24 +42,24 @@ ViT_result.ipynb:  load ViT training result.
 
 
 
-Train model with dataset sample A and B:
+Train model with dataset Group A and B:
 ----------------
 .. code::
 
   python3 ViT_train.py 1 1 0.00005 
  
-The first "1" means run train sampleA , second "1" means run train sampleB (if don't train the sampleA or B, change "1" to "0")
+The first "1" means run train GroupA , second "1" means run train GroupB (if don't train the GroupA or B, change "1" to "0")
 
 0.00005: learning rate
 
 
-Test model with dataset sample A and B:
+Test model with dataset Group A and B:
 ----------------
 .. code::
 
   python3 ViT_test.py 1 1 0.00005 ep1 ep2
  
-The first "1" means run train sampleA , second "1" means run train sampleB (if don't train the sampleA or B, change "1" to "0")
+The first "1" means run train GroupA , second "1" means run train GroupB (if don't train the GroupA or B, change "1" to "0")
 
 0.00005: learning rate
 
