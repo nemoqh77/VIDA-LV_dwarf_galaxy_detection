@@ -1,4 +1,4 @@
-LVdgdetection
+VIDA(LV_dwarf_galaxy_detection)
 -----------
 
 Local Volume dwarf galaxy detection and classification base on CSST simulation data & ViT model
